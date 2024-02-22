@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 init = int(input())
 nums = input().split(' ')
 nums = [int(x) for x in nums]
