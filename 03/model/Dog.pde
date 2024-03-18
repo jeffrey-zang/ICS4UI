@@ -36,4 +36,6 @@ class Dog {
     this.emostate = "tired";
     this.weight = this.weight * 0.9;
   }
+  
+  
 }
