@@ -1,88 +1,95 @@
 class Fish {
   float sightRadius;
-  // float collisionRadius;
+  float collisionRadius;
 
-  // float minSpeed;
-  // float maxSpeed;
-  
   float x;
   float y;
 
   color colour;
 
-  // float turnFactor;
-  // float attractionFactor;
-  // float mass;
-
-  PVector velocity;
-
-  PVector calculateVelocity(float x, float y) {
-    return new PVector(int(x-random(-25, 25)), int(y-random(-25, 25)));
-    // return new PVector(20, 20);
-  }
+  float vx = 1;
+  float vy = 1;
 
   Fish( float xC, float yC, color c, float sr ) {
     this.x = int(xC);
     this.y = int(yC);
     this.colour = c;
+
     this.sightRadius = sr;
-    this.velocity = calculateVelocity(this.x, this.y);
+    this.collisionRadius = sr/6;
   }
 
   void move() {
-
-    int avoidx = 0;
-    int avoidy = 0;
-
-    if (this.x < 25) {
-      avoidx += 50;
-    }
-    if (this.x > 475) {
-      avoidx -= 50;
-    }
-    if (this.y < 25) {
-      avoidy += 50;
-    }
-    if (this.y > 475) {
-      avoidy -= 50;
-    }
+    
+    int xavg = 0;
+    int yavg = 0;
+    int xvelavg = 0;
+    int yvelavg = 0;
+    int nearby = 0;
+    int closex = 0;
+    int closey = 0;
 
     for ( int i = 0; i < fishes.size(); i++ ) {
-      if (i == fishes.indexOf(this)) {
-        continue;
-      }
       Fish fish = fishes.get(i);
+      float d = dist(this.x, this.y, fish.x, fish.y);
 
-      if (dist(this.x, this.y, fish.x, fish.y) > this.sightRadius) {
-        continue;
-      }
-
-      if (dist(this.velocity.x, this.velocity.y, fish.x, fish.y) < this.sightRadius) {
-        avoidx += this.x - fish.x;
-        avoidy += this.y - fish.y;
-      }
-    }
-
-    if (avoidx != 0 || avoidy != 0) {
-      this.velocity = new PVector(this.velocity.x + avoidx, this.velocity.y + avoidy);
-    } else {
-      if (this.x == this.velocity.x && this.y == this.velocity.y) {
-        this.velocity = calculateVelocity(this.x, this.y);
+      if (d < this.sightRadius) {
+        if (d < this.collisionRadius) {
+          closex += this.x - fish.x;
+          closey += this.y - fish.y;
+        } else {
+          xavg += fish.x;
+          yavg += fish.y;
+          xvelavg += fish.vx;
+          yvelavg += fish.vy;
+          nearby++;
+        }
       }
     }
 
-    if (this.x < this.velocity.x) {
-      this.x += 1;
-    } else if (this.x > this.velocity.x) {
-      this.x -= 1;
-    }
-    if (this.y < this.velocity.y) {
-      this.y += 1;
-    } else if (this.y > this.velocity.y) {
-      this.y -= 1;
+    if (nearby > 0) {
+      xavg /= nearby;
+      yavg /= nearby;
+      xvelavg /= nearby;
+      yvelavg /= nearby;
+
+      this.vx += (xavg - this.x)*centering_factor + (xavg - this.vx)*matching_factor;
+      this.vy += (yavg - this.y)*centering_factor + (yavg - this.vy)*matching_factor;
     }
 
-    ellipse(x, y, sightRadius, sightRadius);
+    this.vx += closex*avoid_factor;
+    this.vy += closey*avoid_factor;
+
+    if (this.y < 100) {
+      this.vy += turn_factor;
+    }
+    if (this.x > 400) {
+      this.vx -= turn_factor;
+    }
+    if (this.x < 100) {
+      this.vx += turn_factor;
+    }
+    if (this.y > 400) {
+      this.vy -= turn_factor;
+    }
+
+    float speed = sqrt(this.vx*this.vx + this.vy*this.vy);
+
+    if (speed < minspeed) {
+      this.vx = (this.vx/speed)*minspeed;
+      this.vy = (this.vy/speed)*minspeed;
+    }
+    if (speed > maxspeed) {
+      this.vx = (this.vx/speed)*maxspeed;
+      this.vy = (this.vy/speed)*maxspeed;
+    }
+
+    this.x += this.vx;
+    this.y += this.vy;
+  }
+  
+  void draw() {
+    // ellipse(x, y, sightRadius, sightRadius);
     fill(colour);
     ellipse(x, y, 15, 15);
     noFill();
