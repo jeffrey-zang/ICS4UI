@@ -7,8 +7,8 @@ class Fish {
 
   color colour;
 
-  float vx = 1;
-  float vy = 1;
+  float vx = -1;
+  float vy = -1;
 
   Fish( float xC, float yC, color c, float sr ) {
     this.x = int(xC);
@@ -16,7 +16,7 @@ class Fish {
     this.colour = c;
 
     this.sightRadius = sr;
-    this.collisionRadius = sr/6;
+    this.collisionRadius = 20;
   }
 
   void move() {
@@ -60,16 +60,16 @@ class Fish {
     this.vx += closex*avoid_factor;
     this.vy += closey*avoid_factor;
 
-    if (this.y < 100) {
+    if (this.y < 200) {
       this.vy += turn_factor;
     }
-    if (this.x > 400) {
+    if (this.x > 500) {
       this.vx -= turn_factor;
     }
-    if (this.x < 100) {
+    if (this.x < 200) {
       this.vx += turn_factor;
     }
-    if (this.y > 400) {
+    if (this.y > 500) {
       this.vy -= turn_factor;
     }
 
