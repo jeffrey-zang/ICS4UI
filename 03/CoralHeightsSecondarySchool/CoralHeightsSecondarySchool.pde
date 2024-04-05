@@ -24,32 +24,31 @@ int colRad = 20; // how close a fish can get before it moves away
 int sightRad = 100; // how far a fish can see
 int size = 15; // how big a fish be
 
-int sharkStrength = 2; // how much stronger a shark be compared t' a fish
+float sharkStrength = 2; // how much stronger a shark be compared t' a fish
 
 int w = 800; // width o' th' screen
 int h = 800; // height o' th' screen
 
 int boundary = 200; // Aye, 'tis a distance not t' be trifled with, lest ye be findin' yerself in th' murky depths, lost t' th' abyss!
 
-int numFishes = 20; // number o' fishes in th' school
+int numFishes = 100; // number o' fishes in th' school
 int numSharks = 1; // number o' sharks in th' ocean. try without sharks first!
 
 void setup() {
   // Call ye function t' create th' school o' fishes an' th' shark
-  ocean.createFishes(int(numFishes/2), 200, 200, color(232, 164, 89));
-  ocean.createFishes(int(numFishes/2), 600, 600, color(232, 200, 89));
+  ocean.createFishes(int(numFishes / 2), 200, 200, color(232, 200, 89));
+  ocean.createFishes(int(numFishes / 2), 600, 600, color(232, 200, 89));
   ocean.createSharks(numSharks, 400, 400, color(215, 105, 73));
 }
 
 public void settings() {
   // Set th' screen size t' th' dimensions provided
-  // size(w, h);
   ocean.draw();
 }
 
 void draw() {
   ocean.drawBackground();
-
+  
   // Call ye function t' update th' school o' fishes an' th' sharks
   ocean.drawFishes();
   ocean.drawSharks();
