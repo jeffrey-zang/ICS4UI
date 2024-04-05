@@ -22,7 +22,7 @@ class Ocean {
     fill(191, 196, 237);
     rect(0, height / 4, width, height / 2);
     fill(188, 206, 234);
-    rect(0, height / 2, width,(3 * height) / 4);
+    rect(0, height / 2, width, (3 * height) / 4);
     fill(186, 214, 230);
     rect(0,(3 * height) / 4, width, height);
   }

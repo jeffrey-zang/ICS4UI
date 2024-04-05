@@ -1,27 +1,39 @@
-PVector pos, vel, acc;
-float r, d;
+PVector posSun, posMars;
+PVector vel;
+PVector acc;
+float yGround;
+float sunRadius, marsRadius;
 
 void setup() {
+  
   size(1000, 500);
-  r = 15;
-  d = 2*r;
-
-  pos = new PVector(100, height/2); // initial position
-  vel = new PVector(5, 1);
-  acc = new PVector(0, 0.3);
+  sunRadius = 50;
+  marsRadius = 20;
+  yGround = 400;
+  
+  
+  posSun = new PVector(width/2, height/2);
+  posMars = new PVector(posSun.x - 200, height / 2);
+  vel = new PVector(0, 4);
+  acc = new PVector(0, 0);
 }
 
 void draw() {
-  // background(255);
+  background(5);
+  stroke(0, 0, 200);
+  strokeWeight(3);
+  
+  
+  strokeWeight(0.2);
+  fill(255, 255, 0);
+  
+  circle(posSun.x, posSun.y, sunRadius * 2);
 
-  line(0, 450, width, 450);
-  circle(pos.x, pos.y, d);
 
-  pos.add(vel);
+  fill(255, 0, 0);
+  circle(posMars.x, posMars.y, marsRadius * 2);
+  posMars.add(vel);
   vel.add(acc);
-
-  if (pos.y > 450-r) {
-    pos.y = 450-r;
-    vel.y *= -0.9;
-  }
+ 
+  
 }

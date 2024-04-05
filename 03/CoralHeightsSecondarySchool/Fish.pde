@@ -121,7 +121,8 @@ class Fish {
   void draw() {
     
     // help ye visualize th' fish's sight radius
-    if (showSight) {
+    noFill();
+    if (debug) {
       stroke(0);
       ellipse(this.x, this.y, this.sightRadius, this.sightRadius);
     }
