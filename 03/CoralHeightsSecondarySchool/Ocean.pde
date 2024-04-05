@@ -14,6 +14,18 @@ class Ocean {
     size(width, height);
   }
 
+  void drawBackground() {
+    background(178, 220, 224);
+    fill(192, 190, 240);
+    rect(0, 0, width, height/4);
+    fill(191, 196, 237);
+    rect(0, height/4, width, height/2);
+    fill(188, 206, 234);
+    rect(0, height/2, width, (3*height)/4);
+    fill(186, 214, 230);
+    rect(0, (3*height)/4, width, height);
+  }
+
   void createFishes(int n, int x, int y, color col) {
     // Create a number o' fishes at a given location with a provided color
     for ( int i = 0; i < n; i++ ) {

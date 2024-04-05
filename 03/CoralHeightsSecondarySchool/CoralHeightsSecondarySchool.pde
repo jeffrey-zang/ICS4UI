@@ -35,10 +35,10 @@ int numFishes = 20; // number o' fishes in th' school
 int numSharks = 1; // number o' sharks in th' ocean. try without sharks first!
 
 void setup() {
-  // Call ye function t' create th' school o' fishes an' th' lone shark
-  ocean.createFishes(numFishes, 200, 200, color(255, 0, 0));
-  ocean.createFishes(numFishes, 600, 600, color(0, 255, 0));
-  ocean.createSharks(numSharks, 400, 400, color(0, 0, 255));
+  // Call ye function t' create th' school o' fishes an' th' shark
+  ocean.createFishes(int(numFishes/2), 200, 200, color(232, 164, 89));
+  ocean.createFishes(int(numFishes/2), 600, 600, color(232, 200, 89));
+  ocean.createSharks(numSharks, 400, 400, color(215, 105, 73));
 }
 
 public void settings() {
@@ -48,8 +48,8 @@ public void settings() {
 }
 
 void draw() {
-  background(225);
-  
+  ocean.drawBackground();
+
   // Call ye function t' update th' school o' fishes an' th' sharks
   ocean.drawFishes();
   ocean.drawSharks();
