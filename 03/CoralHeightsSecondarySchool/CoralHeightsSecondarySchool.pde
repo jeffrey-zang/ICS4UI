@@ -26,7 +26,7 @@ int size = 15; // how big a fish be
 
 float sharkStrength = 3; // how much stronger a shark be compared t' a fish
 float sharkSpeed = sharkStrength; // how fast a shark can move
-int hungerTolerance = 5; // how hungry a shark can be before it starts t' eat
+int hungerTolerance = 0; // how hungry a shark can be before it starts t' eat
 int deathTolerance = 20; // how long a shark can go without eatin' before it dies
 
 int w = 800; // width o' th' screen
