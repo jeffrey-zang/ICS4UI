@@ -1,25 +1,38 @@
-boolean[][] cells = new boolean[10][10];
-boolean[][] newCells = new boolean[10][10];
+
+int num = 20;
+
+boolean[][] cells = new boolean[num][num];
+boolean[][] newCells = new boolean[num][num];
 int frames = 0;
 
 void setup() {
-  for (int i = 0; i < 10; i++) {
-    for (int j = 0; j < 10; j++) {
-      // cells[i][j] = random(1) < 0.5;
-      if (j % 2 == 0) {
-        cells[i][j] = i % 2 == 0;
-      } else {
-        cells[i][j] = i % 2 == 1;
+  // cells[11][10] = true;
+  // cells[11][11] = true;
+  // cells[11][12] = true;
+  // cells[10][11] = true;
+
+  for (int i = 0; i < num; i++) {
+    for (int j = 0; j < num; j++) {
+      if (random(1) < 0.5) {
+        cells[i][j] = true;
       }
     }
   }
-  size(200, 200);
+  
+  noLoop();
+}
+
+public void settings() {
+  size(num*20, num*20);
+}
+
+void mouseClicked() {
+  redraw();
 }
 
 void draw() {
-  frames++;
-  for (int i = 0; i < 10; i++) {
-    for (int j = 0; j < 10; j++) {
+  for (int i = 0; i < num; i++) {
+    for (int j = 0; j < num; j++) {
       if (cells[i][j]) {
         fill(0);
       } else {
@@ -33,10 +46,10 @@ void draw() {
     }
   }
   
-  if (frames % 60 == 0) {    
+  // if (frames % 20 == 0) {    
     
-    for (int i = 0; i < 10; i++) {
-      for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < num; i++) {
+      for (int j = 0; j < num; j++) {
         int c = countLivingNeighbours(i, j);
         if (cells[i][j] == true) {
           if (c == 2 || c == 3) {
@@ -52,33 +65,31 @@ void draw() {
       }
     }
     
-    for (int i = 0; i < 10; i++) {
-      for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < num; i++) {
+      for (int j = 0; j < num; j++) {
         cells[i][j] = newCells[i][j];
       }
     }
     
-  }
+  // }
 }
 
 int countLivingNeighbours(int i, int j) {
   int count = 0;
-
+  
   for (int x = -1; x <= 1; x++) {
     for (int y = -1; y <= 1; y++) {
-      
       if (x == 0 && y == 0) {
         continue;
       }
-      if (i + x < 0 || i + x >= 10 || j + y < 0 || j + y >= 10) {
+      if (i + x < 0 || i + x >= num || j + y < 0 || j + y >= num) {
         continue;
       }
       if (cells[i + x][j + y]) {
         count++;
       }
-      
     }
   }
-
+  
   return count;
 }
