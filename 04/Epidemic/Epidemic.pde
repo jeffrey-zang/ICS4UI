@@ -1,9 +1,10 @@
 ArrayList<Person> people = new ArrayList<Person>();
 
-int width = 500;
-int height = 500;
+int width = 800;
+int height = 800;
 int radius = 20;
-int numpeople = 20;
+int numpeople = 50;
+int immunityBuffer = 5;
 
 void setup() {
   for (int i = 0; i < numpeople; i++) {

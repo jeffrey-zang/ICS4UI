@@ -11,32 +11,33 @@ class Person {
   }
   
   void updatePos() { // update the position of the person
+
+    if (this.status == color(255, 0, 0)) { // if it's red, move slower
+      this.pos.add(PVector.mult(this.vel, 0.3));
+    } else {
+      this.pos.add(this.vel); // update the position using velocity vector
+    }
+
     // check wall collision
-    if (this.pos.x - radius < 0) {
+    if (this.pos.x - radius <= 0) {
+      this.pos.x = radius;
       this.vel.x *= -1;
     }
-    if (this.pos.x - radius < -1) {
-      this.pos.x = 0 + radius*2;
-    }
-    if (this.pos.x + radius > width) {
+
+    if (this.pos.x + radius >= width) {
+      this.pos.x = width - radius;
       this.vel.x *= -1;
     }
-    if (this.pos.x + radius > width + 1) {
-      this.pos.x = width - radius*2;
-    }
-    if (this.pos.y - radius < 0) {
+    
+    if (this.pos.y - radius <= 0) {
+      this.pos.y = radius;
       this.vel.y *= -1;
     }
-    if (this.pos.y - radius < -1) {
-      this.pos.y = 0 + radius*2;
-    }
-    if (this.pos.y + radius > height) {
+    
+    if (this.pos.y + radius >= width) {
+      this.pos.y = height - radius;
       this.vel.y *= -1;
     }
-    if (this.pos.y + radius > height + 1) {
-      this.pos.y = width - radius*2;
-    }
-    this.pos.add(this.vel); // update the position using velocity vector
   }
   
   void checkCollision(Person other) {
@@ -68,7 +69,7 @@ class Person {
         }
       }
 
-      if (timessick == 5) { // if this person has been sick 5 times, they are now immune
+      if (timessick == immunityBuffer) { // if this person has been sick 5 times, they are now immune
         this.immune = true;
         this.status = color(255, 255, 255);
       }
