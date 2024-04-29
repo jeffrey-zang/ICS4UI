@@ -12,7 +12,7 @@ class ComplexNum {
   }
   
   float absValue() {
-    return sqrt( pow(this.realPart, 2) + pow(this.imagPart, 2));
+    return sqrt(pow(this.realPart, 2) + pow(this.imagPart, 2));
   }
   
   ComplexNum add(ComplexNum other) {
