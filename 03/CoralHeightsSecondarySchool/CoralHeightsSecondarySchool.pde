@@ -1,3 +1,5 @@
+import g4p_controls.*;
+
 /*
 Jeffrey Zang
 Laurel Heights Secondary School Class of 2025
@@ -42,6 +44,7 @@ void setup() {
   ocean.createFishes(ceil(numFishes / 2), 200, 200, color(232, 200, 89));
   ocean.createFishes(ceil(numFishes / 2), 600, 600, color(232, 200, 89));
   ocean.createSharks(numSharks, 400, 400, color(215, 105, 73));
+  createGUI();
 }
 
 public void settings() {
