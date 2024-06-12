@@ -15,15 +15,18 @@
  */
 
 public void go_practice(GButton source, GEvent event) { //_CODE_:practice:648151:
-  println("button1 - GButton >> GEvent." + event + " @ " + millis());
+  //println("button1 - GButton >> GEvent." + event + " @ " + millis());
+  statusController.visitPractice();
 } //_CODE_:practice:648151:
 
 public void go_stats(GButton source, GEvent event) { //_CODE_:stats:200879:
   println("stats - GButton >> GEvent." + event + " @ " + millis());
+  statusController.visitStats();
 } //_CODE_:stats:200879:
 
 public void go_settings(GButton source, GEvent event) { //_CODE_:settings:428865:
   println("settings - GButton >> GEvent." + event + " @ " + millis());
+  statusController.visitSettings();
 } //_CODE_:settings:428865:
 
 public void buzz(GButton source, GEvent event) { //_CODE_:buzzer:681730:
@@ -60,7 +63,7 @@ public void createGUI(){
   settings.setText("Settings");
   settings.addEventHandler(this, "go_settings");
   buzzer = new GButton(this, 0, 350, 300, 150);
-  buzzer.setText("Buzz!");
+  buzzer.setText("Start");
   buzzer.addEventHandler(this, "buzz");
   answer = new GTextArea(this, 0, 300, 300, 50, G4P.SCROLLBARS_NONE);
   answer.setOpaque(true);

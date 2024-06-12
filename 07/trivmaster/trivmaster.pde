@@ -35,7 +35,10 @@ void draw() {
     }
   } else if (statusController.currentStatus == "buzzed") {
     text(current, 20, 70, 280, 320);
-    answer.setText("Type your answer here!");
+  } else if (statusController.currentStatus == "stats") {
+    text("Stats", 20, 70, 280, 320);
+  } else if (statusController.currentStatus == "settings") {
+    text("Settings", 20, 70, 280, 320);
   }
   
   frame++;
