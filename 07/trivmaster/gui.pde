@@ -28,7 +28,18 @@ public void go_settings(GButton source, GEvent event) { //_CODE_:settings:428865
 
 public void buzz(GButton source, GEvent event) { //_CODE_:buzzer:681730:
   println("button1 - GButton >> GEvent." + event + " @ " + millis());
+  if (statusController.currentStatus == "not started") {
+    statusController.currentStatus = "reading";
+    buzzer.setText("Buzz!");
+  } else if (statusController.currentStatus == "reading") {
+    statusController.currentStatus = "buzzed";
+    buzzer.setText("Buzzed");
+  }
 } //_CODE_:buzzer:681730:
+
+public void answer_change(GTextArea source, GEvent event) { //_CODE_:answer:284648:
+  println("answer - GTextArea >> GEvent." + event + " @ " + millis());
+} //_CODE_:answer:284648:
 
 
 
@@ -51,6 +62,9 @@ public void createGUI(){
   buzzer = new GButton(this, 0, 350, 300, 150);
   buzzer.setText("Buzz!");
   buzzer.addEventHandler(this, "buzz");
+  answer = new GTextArea(this, 0, 300, 300, 50, G4P.SCROLLBARS_NONE);
+  answer.setOpaque(true);
+  answer.addEventHandler(this, "answer_change");
 }
 
 // Variable declarations 
@@ -59,3 +73,4 @@ GButton practice;
 GButton stats; 
 GButton settings; 
 GButton buzzer; 
+GTextArea answer; 

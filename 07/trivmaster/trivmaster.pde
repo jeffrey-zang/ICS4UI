@@ -23,11 +23,19 @@ void draw() {
   
   fill(0);
   textSize(20);
-  text(current, 20, 100);
   
-  if (frame % 12 == 0 && i < q.length) {
-    current += q[i] + " ";
-    i++;
+  if (statusController.currentStatus == "not started") {
+    text("Press the button below to start practice.", 20, 70, 280, 320);
+  } else if (statusController.currentStatus == "reading") {
+    text(current, 20, 70, 280, 320);
+  
+    if (frame % 12 == 0 && i < q.length) {
+      current += q[i] + " ";
+      i++;
+    }
+  } else if (statusController.currentStatus == "buzzed") {
+    text(current, 20, 70, 280, 320);
+    answer.setText("Type your answer here!");
   }
   
   frame++;
