@@ -36,12 +36,31 @@ public void buzz(GButton source, GEvent event) { //_CODE_:buzzer:681730:
     buzzer.setText("Buzz!");
   } else if (statusController.currentStatus == "reading") {
     statusController.currentStatus = "buzzed";
-    buzzer.setText("Buzzed");
+    buzzer.setText("Submit Answer");
+    answer.setPromptText("Type your answer here!");
+  } else if (statusController.currentStatus == "buzzed") {
+    println(answer.getText(), qAnswer);
+    if (answer.getText().equals(qAnswer)) {
+      statusController.correct();
+    } else {
+      statusController.wrong();
+    }
+  } else if (statusController.currentStatus == "stats" || statusController.currentStatus == "settings") {
+    statusController.currentStatus = "not started";
+    buzzer.setText("Start");
   }
 } //_CODE_:buzzer:681730:
 
 public void answer_change(GTextArea source, GEvent event) { //_CODE_:answer:284648:
   println("answer - GTextArea >> GEvent." + event + " @ " + millis());
+  if (event == GEvent.ENTERED && statusController.currentStatus == "buzzed") {
+    println(answer.getText(), qAnswer, answer.getText().equals(qAnswer));
+    if (answer.getText().equals(qAnswer)) {
+      statusController.correct();
+    } else {
+      statusController.wrong();
+    }
+  }
 } //_CODE_:answer:284648:
 
 
@@ -63,9 +82,10 @@ public void createGUI(){
   settings.setText("Settings");
   settings.addEventHandler(this, "go_settings");
   buzzer = new GButton(this, 0, 350, 300, 150);
-  buzzer.setText("Start");
+  buzzer.setText("Buzz!");
   buzzer.addEventHandler(this, "buzz");
   answer = new GTextArea(this, 0, 300, 300, 50, G4P.SCROLLBARS_NONE);
+  answer.setPromptText("Type your answer here!");
   answer.setOpaque(true);
   answer.addEventHandler(this, "answer_change");
 }
