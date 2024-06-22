@@ -3,18 +3,26 @@ import g4p_controls.*;
 StatusController statusController = new StatusController();
 Screen screen = new Screen(300, 500, color(255, 255, 255));
 
+
+ArrayList<String[]> questions = new ArrayList<String[]>();
+
 void setup() {
+  String[] questionsData = loadStrings("data/questions.txt");
+
   createGUI();
+  
+  for (int i = 0; i < questionsData.length; i++) {
+    println(questionsData[i]);
+    questions.add(split(questionsData[i][1], ";"));
+  }
+  println(questions);
 }
 
 public void settings() {
   size(screen.width, screen.height);
 }
 
-
-String[] q = { "What", "room", "does", "Mr.", "Schattman", "of", "LHSS", "teach", "in?" };
-String qAnswer = "1705";
-
+String[] currentQ = {"", ""};
 int i = 0;
 int timeout = 0;
 int frame = 0;
@@ -31,8 +39,8 @@ void draw() {
   } else if (statusController.currentStatus == "reading") {
     text(current, 20, 70, 280, 320);  
   
-    if (frame % 12 == 0 && i < q.length) {
-      current += q[i] + " ";
+    if (frame % 12 == 0 && i < currentQ[0].length()) {
+      // current += q[i] + " ";
       i++;
     }
   } else if (statusController.currentStatus == "buzzed") {
